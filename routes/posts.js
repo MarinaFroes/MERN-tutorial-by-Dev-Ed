@@ -30,7 +30,20 @@ router.delete('/:postId', async (req, res) => {
   } catch (e) {
     res.json({ message: err });
   }
-})
+});
+
+// Update a post title
+router.patch('/:postId', async (req, res) => {
+  try {
+    const updatedPost = await Post.updateOne(
+      { _id: req.params.postId },
+      { $set: { title: req.body.title } }
+    );
+    res.json(updatedPost);
+  } catch (e) {
+    res.json({ message: err });
+  }
+});
 
 // Create a post
 router.post('/', async (req, res) => {
